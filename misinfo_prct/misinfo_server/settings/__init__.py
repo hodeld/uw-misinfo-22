@@ -81,7 +81,14 @@ WSGI_APPLICATION = 'misinfo_server.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 # connect to CIP host through SSH
-
+ssh_tunnel = SSHTunnelForwarder('earth.lab.cip.uw.edu',
+    ssh_username="hodeld",
+    ssh_private_key='/Users/daim/.ssh/id_rsa',
+    ssh_private_key_password=os.getenv('SSH_PRIVATE_KEY_PW'),
+    ssh_password=os.getenv('SSH_PW'),
+    remote_bind_address=('mars.lab.cip.uw.edu', 5432),  # 5432 default postgres port
+)
+ssh_tunnel.start()
 
 
 DATABASES = {
@@ -93,7 +100,16 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
     },
+'shhtunnel_db': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'HOST': 'localhost',
+        'PORT': ssh_tunnel.local_bind_port,
+        'NAME': 'rapidresponse2022',
+        'USER': 'hodeld',
+        'PASSWORD': 'CdPTac8d4a',
+    },
 }
+
 
 
 # Password validation
