@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from .env_variables import set_env_variables
 from pathlib import Path
-from sshtunnel import SSHTunnelForwarder
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,17 +79,8 @@ WSGI_APPLICATION = 'misinfo_server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# connect to CIP host through SSH
-ssh_tunnel = SSHTunnelForwarder('earth.lab.cip.uw.edu',
-    ssh_username="hodeld",
-    ssh_private_key='/Users/daim/.ssh/id_rsa',
-    ssh_private_key_password=os.getenv('SSH_PRIVATE_KEY_PW'),
-    ssh_password=os.getenv('SSH_PW'),
-    remote_bind_address=('mars.lab.cip.uw.edu', 5432),  # 5432 default postgres port
-)
-ssh_tunnel.start()
 
-
+# only with vpn on
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # 'django.db.backends.sqlite3',
@@ -100,10 +90,10 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
     },
-'shhtunnel_db': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'HOST': 'localhost',
-        'PORT': ssh_tunnel.local_bind_port,
+'earth_db': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'hermes.lab.cip.uw.edu',
+        'PORT': 5432,
         'NAME': 'rapidresponse2022',
         'USER': 'hodeld',
         'PASSWORD': 'CdPTac8d4a',
