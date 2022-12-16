@@ -1,0 +1,76 @@
+{# HTML5 declaration #}
+<!DOCTYPE html>
+{# loads js-scripts from static  #}
+{% load static %}
+
+
+<html>
+{# Make modifiable head elements #}
+<head>
+    <title>{% block title %}Home {% endblock title %} | Misinfo</title>
+
+    {% block head_meta %}
+        {% block head_meta_charset %}
+            <meta http-equiv="Content-Type"
+                  content="text/html; charset=utf-8"/>
+        {% endblock head_meta_charset %}
+        {% block head_meta_contentlanguage %}
+            <meta http-equiv="Content-Language" value="de-ch"/>
+        {% endblock head_meta_contentlanguage %}
+        {% block head_meta_viewport %}
+            <meta name="viewport"
+                  content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        {% endblock head_meta_viewport %}
+    {% endblock head_meta %}
+    {% block head_css %}
+        {% block head_css_site %}
+            <!-- Font Awesome -->
+            {% load bootstrap4 %}                    {#import bootstrap4/bootstrap3 #}
+            {% bootstrap_css %}                        {# Embed Bootstrap CSS #}
+            {% bootstrap_javascript jquery='full' %}    {# Embed Bootstrap JS+jQuery #}
+        {% endblock head_css_site %}
+        {% block head_css_page %}{% endblock head_css_page %}
+    {% endblock head_css %}
+</head>
+{# Navigation Menu #}
+
+<header>
+
+    <div class="p-3"><h1 class="display-3">Curated Misinformation Database</h1>
+    <h1 ><small class="text-muted">Dev Version</small></h1>
+    </div>
+
+
+</header>
+{# The Document Body #}
+
+<div class="container" id="id-site-wrapper">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+    {% block content %}
+
+    {% endblock content %}
+</div>
+
+{# The Footer #}
+
+<div class="footer">
+
+    <div class="p-3">
+        <br>
+
+        <p>Vers. 0.0.1</p>
+    </div>
+</div>
+
+
+{% block script %}
+
+{% endblock script %}

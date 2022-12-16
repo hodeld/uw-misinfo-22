@@ -1,0 +1,19 @@
+{% extends 'misinfo_server/base.html' %}
+{# loads js-scripts from static  #}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head_css_page %}
+
+{% endblock head_css_page %}
+
+{% block content %}
+    <H1>{{ paper.title }}</H1>
+    <p><a href="{{ paper.url_sesc }}">{{ paper.url_sesc }}</a></p>
+    <p>{{ paper.abstract }}</p>
+{% crispy form %}
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

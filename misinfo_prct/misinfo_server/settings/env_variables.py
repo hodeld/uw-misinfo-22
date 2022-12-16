@@ -3,7 +3,7 @@ import io
 import configparser
 
 
-var_names = ['SSH_PRIVATE_KEY_PW', 'SSH_PW', 'SECRET_KEY', 'DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_PORT',]
+var_names = ['EARTH_DB_PASSWORD', 'SECRET_KEY', 'DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_PORT',]
 
 
 def set_env_variables(base_dir):

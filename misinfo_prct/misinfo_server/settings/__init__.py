@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd parties
+    'bootstrap4',
+    'crispy_forms',
+
     #local apps
     'misinfo_main.apps.MisinfoMainConfig',
 ]
@@ -59,7 +63,7 @@ ROOT_URLCONF = 'misinfo_server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,6 +78,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'misinfo_server.wsgi.application'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Database
@@ -82,7 +87,15 @@ WSGI_APPLICATION = 'misinfo_server.wsgi.application'
 
 # only with vpn on
 DATABASES = {
-    'default': {
+    'earth_semanticscholar': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'mars.lab.cip.uw.edu',
+        'PORT': 5432,
+        'NAME': 'semanticscholar',
+        'USER': 'hodeld',
+        'PASSWORD': os.getenv('EARTH_DB_PASSWORD'),
+    },
+    'local_npr': {
         'ENGINE': 'django.db.backends.mysql',  # 'django.db.backends.sqlite3',
         'NAME': 'npr_misinfo',  # os.getenv('DB_NAME'),  #
         'USER': os.getenv('DB_USER'),
@@ -90,15 +103,17 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
     },
-'earth_db': {
+
+    'earth_rapidresponse': {
         'ENGINE': 'django.db.backends.postgresql',
         'HOST': 'hermes.lab.cip.uw.edu',
         'PORT': 5432,
         'NAME': 'rapidresponse2022',
         'USER': 'hodeld',
-        'PASSWORD': 'CdPTac8d4a',
+        'PASSWORD': os.getenv('EARTH_DB_PASSWORD'),
     },
 }
+DATABASES['default'] = DATABASES['local_npr']
 
 
 
