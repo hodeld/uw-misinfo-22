@@ -36,22 +36,27 @@
 
 <header>
 
-    <div class="p-3"><h1 class="display-3">Curated Misinformation Database</h1>
-    <h1 ><small class="text-muted">Dev Version</small></h1>
+    <div class="p-3"><h1 class="display-3 text-center">Curated Misinformation Database <small class="text-muted">-Dev</small></h1>
     </div>
+    <hr>
 
 
 </header>
 {# The Document Body #}
 
 <div class="container" id="id-site-wrapper">
-    {% if messages %}
-        <ul class="messages">
+    <div class="" role="alert" id="id_up_message">{{ message }}
+
+        {% if messages %}
             {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                <div class="alert {% if message.tags %}
+            alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger
+            {% else %}{{ message.tags }}{% endif %}
+            {% endif %}" role="alert">{{ message }}
+                </div>
             {% endfor %}
-        </ul>
-    {% endif %}
+        {% endif %}
+        </div>
 
 
     {% block content %}
@@ -70,7 +75,7 @@
     </div>
 </div>
 
-
+<script src="{% static 'misinfo_server/js/main.js' %}"></script>
 {% block script %}
 
 {% endblock script %}

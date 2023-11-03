@@ -11,7 +11,7 @@ def home(request):
         save_paper(request)
 
     #update_db_form = PaperFilterForm()
-    paper = random_paper()
+    paper = random_paper(request)
     form = PaperFilterForm(instance=paper)
     extra_d = {'form': form, 'paper':paper}
     #extra_d.update(paper_d)

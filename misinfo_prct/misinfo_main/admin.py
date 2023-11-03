@@ -17,7 +17,8 @@ class DBQueryAdmin(admin.ModelAdmin):
 
 class PaperAdmin(admin.ModelAdmin):
 
-    list_display = ('title', 'id', 'paperclass',)
+    list_display = ('title', 'id', 'paperclass', 'comment')
+    list_filter = ('paperclass',)
     exclude = []
 # Register your models here.
 admin.site.register(Paper_SeSc, PaperAdmin)

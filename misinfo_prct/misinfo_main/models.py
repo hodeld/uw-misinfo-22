@@ -23,8 +23,9 @@ class DBQuery(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     query = models.CharField(max_length=500)
+    is_fetching = models.BooleanField(default=False)
     def __str__(self):
-        return self.query[:15]
+        return 'Query ' + str(self.pk)
 
 
 class PaperClassification(models.Model):
@@ -47,6 +48,10 @@ class Paper_SeSc(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Paper'
+        verbose_name_plural = 'Papers'
 
 
 class Abstract(models.Model):
